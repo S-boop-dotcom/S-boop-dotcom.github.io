@@ -1,295 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Github, Mail, Linkedin, Code, Server, Network, Award, BookOpen, Briefcase } from 'lucide-react';
-
-export default function Portfolio() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  const [isVisible, setIsVisible] = useState({});
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible((prev) => ({ ...prev, [entry.target.id]: true }));
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    document.querySelectorAll('section[id]').forEach((section) => {
-      observer.observe(section);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    setIsMenuOpen(false);
-  };
-
-  const skills = [
-    { icon: <Code className="w-8 h-8" />, name: 'Programming', items: ['Python', 'Java', 'C++', 'JavaScript'] },
-    { icon: <Network className="w-8 h-8" />, name: 'Networking', items: ['Cisco IOS', 'TCP/IP', 'Network Security', 'VLANs'] },
-    { icon: <Server className="w-8 h-8" />, name: 'Systems', items: ['Linux', 'Docker', 'Cloud Computing', 'Embedded Systems'] },
-    { icon: <BookOpen className="w-8 h-8" />, name: 'Tools', items: ['Git', 'Wireshark', 'VS Code', 'MATLAB'] }
-  ];
-
-  const projects = [
-    {
-      title: 'Network Monitoring Dashboard',
-      description: 'Real-time network traffic analyzer with visualization using Python and Scapy',
-      tech: ['Python', 'Flask', 'React', 'Networking']
-    },
-    {
-      title: 'IoT Home Automation System',
-      description: 'Smart home control system using Raspberry Pi and MQTT protocol',
-      tech: ['Raspberry Pi', 'MQTT', 'Python', 'IoT']
-    },
-    {
-      title: 'Campus Network Simulator',
-      description: 'Cisco Packet Tracer project simulating enterprise network topology',
-      tech: ['Cisco', 'Networking', 'Security', 'VLANs']
-    }
-  ];
-
-  const experiences = [
-    {
-      role: 'Network Engineering Intern',
-      company: 'Tech Solutions Ltd',
-      period: 'Jun 2024 - Aug 2024',
-      description: 'Assisted in configuring and maintaining enterprise network infrastructure'
-    },
-    {
-      role: 'Research Assistant',
-      company: 'University Computer Lab',
-      period: 'Jan 2024 - Present',
-      description: 'Supporting research in wireless network optimization and IoT systems'
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="text-2xl font-bold text-blue-600">ST</div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`text-sm font-medium transition-colors ${
-                    activeSection === section ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-                  }`}
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="md:hidden mt-4 pb-4 space-y-3">
-              {['home', 'about', 'skills', 'projects', 'experience', 'contact'].map((section) => (
-                <button
-                  key={section}
-                  onClick={() => scrollToSection(section)}
-                  className="block w-full text-left py-2 text-gray-600 hover:text-blue-600"
-                >
-                  {section.charAt(0).toUpperCase() + section.slice(1)}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div className={`max-w-5xl w-full text-center transition-all duration-1000 ${isVisible.home ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Sfiso Tshabalala
-          </h1>
-          <h2 className="text-3xl md:text-4xl font-semibold text-blue-600 mb-4">
-            Computer Engineering Student &<br />Networking Enthusiast
-          </h2>
-          <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-3xl mx-auto">
-            I build systems, networks, and technology solutions.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => scrollToSection('projects')}
-              className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors shadow-lg"
-            >
-              View Projects
-            </button>
-            <button className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg text-lg font-medium hover:bg-blue-50 transition-colors">
-              Download CV
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-24 px-6 bg-white">
-        <div className={`max-w-4xl mx-auto transition-all duration-1000 ${isVisible.about ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">About Me</h2>
-          <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-            <p>
-              I'm a passionate Computer Engineering student with a deep interest in networking technologies and system architecture. My journey in tech began with curiosity about how devices communicate, and has evolved into a comprehensive understanding of both hardware and software systems.
-            </p>
-            <p>
-              Currently pursuing my degree, I focus on building practical solutions that bridge the gap between theoretical knowledge and real-world applications. Whether it's configuring enterprise networks, developing IoT systems, or optimizing system performance, I approach every challenge with enthusiasm and dedication.
-            </p>
-            <p>
-              Beyond academics, I'm committed to continuous learning and staying current with emerging technologies in cloud computing, cybersecurity, and network automation.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="py-24 px-6">
-        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible.skills ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Skills & Expertise</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {skills.map((skill, index) => (
-              <div
-                key={index}
-                className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition-shadow"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className="text-blue-600 mb-4">{skill.icon}</div>
-                <h3 className="text-xl font-semibold mb-4">{skill.name}</h3>
-                <ul className="space-y-2">
-                  {skill.items.map((item, i) => (
-                    <li key={i} className="text-gray-600 flex items-center">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full mr-3"></span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-24 px-6 bg-white">
-        <div className={`max-w-6xl mx-auto transition-all duration-1000 ${isVisible.projects ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Featured Projects</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 p-8 rounded-xl hover:shadow-xl transition-all hover:-translate-y-2 border border-gray-200"
-              >
-                <h3 className="text-2xl font-semibold mb-4">{project.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-24 px-6">
-        <div className={`max-w-4xl mx-auto transition-all duration-1000 ${isVisible.experience ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">Experience</h2>
-          <div className="space-y-8">
-            {experiences.map((exp, index) => (
-              <div key={index} className="bg-white p-8 rounded-xl shadow-md border-l-4 border-blue-600">
-                <div className="flex items-start justify-between mb-4 flex-wrap gap-4">
-                  <div>
-                    <h3 className="text-2xl font-semibold">{exp.role}</h3>
-                    <p className="text-blue-600 font-medium text-lg">{exp.company}</p>
-                  </div>
-                  <span className="text-gray-500 font-medium">{exp.period}</span>
-                </div>
-                <p className="text-gray-700 leading-relaxed">{exp.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-24 px-6 bg-white">
-        <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${isVisible.contact ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Let's Connect</h2>
-          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-            I'm always open to discussing new projects, opportunities, or collaborations in computer engineering and networking.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <a
-              href="mailto:sfiso@example.com"
-              className="px-8 py-4 bg-blue-600 text-white rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2"
-            >
-              <Mail className="w-5 h-5" />
-              Send Email
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg text-lg font-medium hover:bg-blue-50 transition-colors inline-flex items-center justify-center gap-2"
-            >
-              <Linkedin className="w-5 h-5" />
-              LinkedIn
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl font-bold mb-2">Sfiso Tshabalala</h3>
-              <p className="text-gray-400">Computer Engineering Student</p>
-            </div>
-            <div className="flex gap-6">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-                <Github className="w-6 h-6" />
-              </a>
-              <a href="mailto:sfiso@example.com" className="hover:text-blue-400 transition-colors">
-                <Mail className="w-6 h-6" />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">
-                <Linkedin className="w-6 h-6" />
-              </a>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
-            <p>© 2024 Sfiso Tshabalala. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sfiso Tshabalala Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">ST</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
-  );
-}
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-content">
+      <h1>Sfiso Tshabalala</h1>
+      <h2>Computer Engineering Student & Networking Enthusiast</h2>
+      <p>Driven and motivated to build innovative systems, networks, and solutions that make a real impact.</p>
+      <div class="hero-buttons">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="Sfiso_CV.pdf" class="btn btn-secondary" download>Download CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      I am a passionate and motivated Computer Engineering student with a strong interest in networking and system architecture.  
+      I thrive on solving challenging problems, learning new technologies, and applying my skills to create practical solutions.  
+      My goal is to continuously grow as a professional and contribute meaningfully to the tech world.
+    </p>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="section section-dark">
+    <h2>Skills & Expertise</h2>
+    <div class="skills-container">
+      <div class="skill">
+        <h3>Programming</h3>
+        <p>Python, Java, C++, JavaScript</p>
+      </div>
+      <div class="skill">
+        <h3>Networking</h3>
+        <p>Cisco IOS, TCP/IP, Network Security, VLANs</p>
+      </div>
+      <div class="skill">
+        <h3>Systems</h3>
+        <p>Linux, Docker, Cloud Computing, Embedded Systems</p>
+      </div>
+      <div class="skill">
+        <h3>Tools</h3>
+        <p>Git, Wireshark, VS Code, MATLAB</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <div class="projects-container">
+      <div class="project-card">
+        <h3>Network Monitoring Dashboard</h3>
+        <p>Real-time network traffic analyzer with visualization using Python and Scapy</p>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Flask</span>
+        <span class="tech-badge">React</span>
+        <span class="tech-badge">Networking</span>
+      </div>
+      <div class="project-card">
+        <h3>IoT Home Automation System</h3>
+        <p>Smart home control system using Raspberry Pi and MQTT protocol</p>
+        <span class="tech-badge">Raspberry Pi</span>
+        <span class="tech-badge">MQTT</span>
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">IoT</span>
+      </div>
+      <div class="project-card">
+        <h3>Campus Network Simulator</h3>
+        <p>Cisco Packet Tracer project simulating enterprise network topology</p>
+        <span class="tech-badge">Cisco</span>
+        <span class="tech-badge">Networking</span>
+        <span class="tech-badge">Security</span>
+        <span class="tech-badge">VLANs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="section section-dark">
+    <h2>Experience</h2>
+    <div class="experience-container">
+      <div class="experience-card">
+        <h3>Network Engineering Intern</h3>
+        <p class="company">Tech Solutions Ltd | Jun 2024 - Aug 2024</p>
+        <p>Assisted in configuring and maintaining enterprise network infrastructure.</p>
+      </div>
+      <div class="experience-card">
+        <h3>Research Assistant</h3>
+        <p class="company">University Computer Lab | Jan 2024 - Present</p>
+        <p>Supporting research in wireless network optimization and IoT systems.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <h2>Contact Me</h2>
+    <p>Feel free to reach out for collaborations, projects, or opportunities.</p>
+    <div class="contact-buttons">
+      <a href="mailto:sfisot814@gmail.com" class="btn btn-primary">Send Email</a>
+      <a href="https://www.linkedin.com/in/sfiso-tshabalala-948276337/" target="_blank" class="btn btn-secondary">LinkedIn</a>
+      <a href="https://github.com/S-boop-dotcom" target="_blank" class="btn btn-secondary">GitHub</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Sfiso Tshabalala. All rights reserved.</p>
+  </footer>
+</body>
+</html>
