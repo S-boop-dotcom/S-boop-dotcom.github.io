@@ -6,29 +6,82 @@
   <title>Sfiso Tshabalala Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Basic Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; line-height: 1.6; background: #0a1a2b; color: #f0f0f0; }
+    a { text-decoration: none; }
+    
+    /* Navbar */
+    nav { position: fixed; width: 100%; background: #011627; padding: 1rem 2rem; z-index: 1000; display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #00d1ff; cursor: pointer; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+    .nav-links li a { color: #f0f0f0; transition: color 0.3s; }
+    .nav-links li a:hover { color: #00d1ff; }
+
+    /* Hero Section */
+    .hero-section { min-height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 0 1rem; background: linear-gradient(180deg, #011627 0%, #002c4a 100%); }
+    .hero-section h1 { font-size: 3rem; color: #00d1ff; margin-bottom: 1rem; }
+    .hero-section h2 { font-size: 1.8rem; margin-bottom: 1rem; color: #f0f0f0; }
+    .hero-section p { max-width: 600px; margin: 0 auto 2rem; color: #a0a0a0; }
+    .hero-buttons a { display: inline-block; margin: 0.5rem; padding: 0.8rem 2rem; border-radius: 6px; font-weight: 500; transition: all 0.3s; }
+    .btn-primary { background: #00d1ff; color: #011627; }
+    .btn-primary:hover { background: #00b1cc; }
+    .btn-secondary { border: 2px solid #00d1ff; color: #00d1ff; }
+    .btn-secondary:hover { background: #00d1ff; color: #011627; }
+
+    /* Sections */
+    .section { padding: 6rem 2rem; max-width: 1000px; margin: 0 auto; }
+    .section-dark { background: #011627; }
+    h2 { font-size: 2.5rem; color: #00d1ff; margin-bottom: 2rem; text-align: center; }
+    p { font-size: 1.1rem; color: #c0c0c0; text-align: center; }
+
+    /* Skills */
+    .skills-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .skill { background: #002c4a; padding: 1.5rem; border-radius: 10px; text-align: center; transition: transform 0.3s; }
+    .skill:hover { transform: translateY(-5px); }
+    .skill h3 { color: #00d1ff; margin-bottom: 0.5rem; }
+    .skill p { color: #f0f0f0; }
+
+    /* Projects */
+    .projects-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 2rem; }
+    .project-card { background: #002c4a; padding: 1.5rem; border-radius: 10px; transition: transform 0.3s, box-shadow 0.3s; }
+    .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+    .project-card h3 { color: #00d1ff; margin-bottom: 0.5rem; }
+    .project-card p { color: #f0f0f0; margin-bottom: 1rem; }
+    .tech-badge { display: inline-block; background: #00d1ff; color: #011627; padding: 0.2rem 0.6rem; border-radius: 4px; margin-right: 0.3rem; font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+    /* Contact */
+    .contact-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 1rem; }
+
+    /* Footer */
+    footer { text-align: center; padding: 2rem; background: #011627; color: #c0c0c0; margin-top: 2rem; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
   <nav>
-    <div class="nav-container">
-      <div class="logo">ST</div>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
+    <div class="logo">ST</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
   <!-- Hero Section -->
   <section id="home" class="hero-section">
     <div class="hero-content">
       <h1>Sfiso Tshabalala</h1>
-      <h2>Computer Engineering Student & Networking Enthusiast</h2>
-      <p>Driven and motivated to build innovative systems, networks, and solutions that make a real impact.</p>
+      <h2>Aspiring Network, Software & Embedded Systems Engineer</h2>
+      <p>Motivated and curious Computer Engineering student building projects that showcase my skills in software, networking, and embedded systems.</p>
       <div class="hero-buttons">
         <a href="#projects" class="btn btn-primary">View Projects</a>
         <a href="Sfiso_CV.pdf" class="btn btn-secondary" download>Download CV</a>
@@ -39,11 +92,7 @@
   <!-- About Section -->
   <section id="about" class="section">
     <h2>About Me</h2>
-    <p>
-      I am a passionate and motivated Computer Engineering student with a strong interest in networking and system architecture.  
-      I thrive on solving challenging problems, learning new technologies, and applying my skills to create practical solutions.  
-      My goal is to continuously grow as a professional and contribute meaningfully to the tech world.
-    </p>
+    <p>I am a highly motivated Computer Engineering student with a passion for technology and problem-solving. I specialize in software development, networking, and embedded systems. My focus is to learn continuously and create impactful projects that demonstrate my skills and dedication.</p>
   </section>
 
   <!-- Skills Section -->
@@ -60,11 +109,11 @@
       </div>
       <div class="skill">
         <h3>Systems</h3>
-        <p>Linux, Docker, Cloud Computing, Embedded Systems</p>
+        <p>Linux, Docker, Embedded Systems, Cloud Computing</p>
       </div>
       <div class="skill">
         <h3>Tools</h3>
-        <p>Git, Wireshark, VS Code, MATLAB</p>
+        <p>Git, VS Code, Wireshark, MATLAB</p>
       </div>
     </div>
   </section>
@@ -74,53 +123,30 @@
     <h2>Projects</h2>
     <div class="projects-container">
       <div class="project-card">
-        <h3>Network Monitoring Dashboard</h3>
-        <p>Real-time network traffic analyzer with visualization using Python and Scapy</p>
-        <span class="tech-badge">Python</span>
-        <span class="tech-badge">Flask</span>
-        <span class="tech-badge">React</span>
-        <span class="tech-badge">Networking</span>
+        <h3>Secure Notes App (Java)</h3>
+        <p>A desktop application for securely storing and managing personal notes with encryption and search functionality.</p>
+        <span class="tech-badge">Java</span>
+        <span class="tech-badge">OOP</span>
       </div>
       <div class="project-card">
-        <h3>IoT Home Automation System</h3>
-        <p>Smart home control system using Raspberry Pi and MQTT protocol</p>
-        <span class="tech-badge">Raspberry Pi</span>
-        <span class="tech-badge">MQTT</span>
-        <span class="tech-badge">Python</span>
-        <span class="tech-badge">IoT</span>
+        <h3>Address Book (Java)</h3>
+        <p>A contact management application that allows adding, deleting, and searching contacts using Java Swing.</p>
+        <span class="tech-badge">Java</span>
+        <span class="tech-badge">GUI</span>
       </div>
       <div class="project-card">
-        <h3>Campus Network Simulator</h3>
-        <p>Cisco Packet Tracer project simulating enterprise network topology</p>
-        <span class="tech-badge">Cisco</span>
-        <span class="tech-badge">Networking</span>
-        <span class="tech-badge">Security</span>
-        <span class="tech-badge">VLANs</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience Section -->
-  <section id="experience" class="section section-dark">
-    <h2>Experience</h2>
-    <div class="experience-container">
-      <div class="experience-card">
-        <h3>Network Engineering Intern</h3>
-        <p class="company">Tech Solutions Ltd | Jun 2024 - Aug 2024</p>
-        <p>Assisted in configuring and maintaining enterprise network infrastructure.</p>
-      </div>
-      <div class="experience-card">
-        <h3>Research Assistant</h3>
-        <p class="company">University Computer Lab | Jan 2024 - Present</p>
-        <p>Supporting research in wireless network optimization and IoT systems.</p>
+        <h3>WebGL Game (HTML/JS)</h3>
+        <p>A browser-based game built using HTML, JavaScript, and WebGL featuring interactive graphics and gameplay.</p>
+        <span class="tech-badge">JavaScript</span>
+        <span class="tech-badge">WebGL</span>
       </div>
     </div>
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="section">
+  <section id="contact" class="section section-dark">
     <h2>Contact Me</h2>
-    <p>Feel free to reach out for collaborations, projects, or opportunities.</p>
+    <p>Feel free to reach out for projects, collaborations, or any opportunities in software, networking, or embedded systems.</p>
     <div class="contact-buttons">
       <a href="mailto:sfisot814@gmail.com" class="btn btn-primary">Send Email</a>
       <a href="https://www.linkedin.com/in/sfiso-tshabalala-948276337/" target="_blank" class="btn btn-secondary">LinkedIn</a>
